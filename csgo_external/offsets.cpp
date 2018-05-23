@@ -21,6 +21,5 @@ void initOffsets()
 	m_vecOrigin		 = 0x134;
 
 	BoneMatrix		 = 0x2698;
-
 	ViewMatrix		 = 0x4A76154;
 }

@@ -125,7 +125,8 @@ void drawCrosshair()
 
 void drawWH()
 {
-	pLocal->ReadData();//
+	//pLocal = new CLocalPlayer();
+	pLocal->ReadData();
 
 	for (int i = 0; i < 20; i++)
 	{
@@ -140,6 +141,20 @@ void drawWH()
 
 		float W2S[3];
 		float W2S_Head[3];
+
+		int radarx = pLocal->Pos[0] - pEntity[i]->Pos[0];
+		radarx = radarx / -14;
+		int radary = pLocal->Pos[1] - pEntity[i]->Pos[1];
+		radary = radary / 14;
+
+		if (pEntity[i]->Team == pLocal->Team)
+		{
+			DrawBox(145 + radarx, 50 + 145 + radary, 6, 6, 1, 0, 0, 255, 255);
+		}
+		else//Check if the player is not in our team
+		{
+			DrawBox(145 + radarx, 50 + 145 + radary, 6, 6, 1, 255, 0, 0, 255);
+		}
 
 		if (WorldToScreen(pEntity[i]->Pos, W2S) && WorldToScreen(pEntity[i]->HeadPos, W2S_Head))
 		{

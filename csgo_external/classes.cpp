@@ -14,7 +14,7 @@ bool getAliveStatus(int health)
 
 void CBoneMatrix::GetBonePos(DWORD boneBase, int boneID, float * bonePos)
 {
-	bonePos[0] = mem->ReadMem<float>(boneBase + 0x30 * boneID + 0x1c);//x
+	bonePos[0] = mem->ReadMem<float>(boneBase + 0x30 * boneID + 0x0c);//x
 	bonePos[1] = mem->ReadMem<float>(boneBase + 0x30 * boneID + 0x1C);//y
 	bonePos[2] = mem->ReadMem<float>(boneBase + 0x30 * boneID + 0x2C);//z
 }
