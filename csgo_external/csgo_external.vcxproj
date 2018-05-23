@@ -149,11 +149,18 @@
     <ClCompile Include="diretrix.cpp" />
     <ClCompile Include="draw.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="memory.cpp" />
+    <ClCompile Include="memreader.cpp" />
+    <ClCompile Include="offsets.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="classes.h" />
     <ClInclude Include="diretrix.h" />
     <ClInclude Include="draw.h" />
+    <ClInclude Include="memory.h" />
+    <ClInclude Include="memreader.h" />
+    <ClInclude Include="offsets.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
