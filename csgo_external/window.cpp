@@ -95,9 +95,39 @@ void SetWindowToTarget()
 	}
 }
 
+void createWindow()
+{
+	tWnd = FindWindow(0, tWindowName);
+	if (tWnd)
+	{
+		RECT tSize;
+		GetWindowRect(tWnd, &tSize);
+		int Width = tSize.right - tSize.left;
+		int Height = tSize.bottom - tSize.top;
+		hWnd = CreateWindowEx(WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_LAYERED, "Drakosha", "Drakosha", WS_POPUP, 1, 1, Width, Height, 0, 0, 0, 0);
+		SetLayeredWindowAttributes(hWnd, 0, 1.0f, LWA_ALPHA);
+		SetLayeredWindowAttributes(hWnd, 0, RGB(0, 0, 0), LWA_COLORKEY);
+		ShowWindow(hWnd, SW_SHOW);
+	}
+}
+
 void initWindow( HINSTANCE hInstance )
 {
 	renderFoo = NULL;
 	CreateThread(0, 0, (LPTHREAD_START_ROUTINE)SetWindowToTarget, 0, 0, 0);
 	registerClassWin(hInstance);
+	createWindow();
+}
+
+void processMessages()
+{
+	for (;;)
+	{
+		if (PeekMessage(&Message, hWnd, 0, 0, PM_REMOVE))
+		{
+			DispatchMessage(&Message);
+			TranslateMessage(&Message);
+		}
+		Sleep(1);
+	}
 }
