@@ -63,6 +63,7 @@ void Render()
 	p_Device->BeginScene();
 
 	drawCrosshair();
+	drawWH();
 
 	p_Device->EndScene();
 	p_Device->PresentEx(0, 0, 0, 0, 0);

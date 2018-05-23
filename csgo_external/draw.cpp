@@ -3,6 +3,8 @@
 #include "memory.h"
 #include "offsets.h"
 
+#include "classes.h"
+
 #include <d3d9.h>
 #include <d3dx9.h>
 
@@ -10,6 +12,11 @@ extern ID3DXLine* p_Line;		// WTF
 extern ID3DXFont* pFontSmall;	// если вставить в "diretrix.h"
 extern ID3DXFont* pFont;		// все упадет
 extern RECT winSize;
+
+extern CPlayer* pEntity[32];
+extern CLocalPlayer* pLocal;
+
+extern CBoneMatrix cBoneMatrix;
 
 void DrawLine(float x, float y, float xx, float yy, int r, int g, int b, int a, int f)
 {
@@ -24,6 +31,31 @@ void DrawLine(float x, float y, float xx, float yy, int r, int g, int b, int a, 
 	dLine[1].y = yy;
 
 	p_Line->Draw(dLine, 2, D3DCOLOR_ARGB(a, r, g, b));
+}
+
+void DrawBox(float x, float y, float width, float height, float px, int r, int g, int b, int a)
+{
+	D3DXVECTOR2 points[5];
+	points[0] = D3DXVECTOR2(x, y);
+	points[1] = D3DXVECTOR2(x + width, y);
+	points[2] = D3DXVECTOR2(x + width, y + height);
+	points[3] = D3DXVECTOR2(x, y + height);
+	points[4] = D3DXVECTOR2(x, y);
+	p_Line->SetWidth(1);
+	p_Line->Draw(points, 5, D3DCOLOR_RGBA(r, g, b, a));
+}
+
+int DrawString(char* String, int x, int y, int r, int g, int b, ID3DXFont* ifont)
+{
+	RECT ShadowPos;
+	ShadowPos.left = x + 1;
+	ShadowPos.top = y + 1;
+	RECT FontPos;
+	FontPos.left = x;
+	FontPos.top = y;
+	ifont->DrawTextA(0, String, strlen(String), &ShadowPos, DT_NOCLIP, D3DCOLOR_ARGB(255, r / 3, g / 3, b / 3));
+	ifont->DrawTextA(0, String, strlen(String), &FontPos, DT_NOCLIP, D3DCOLOR_ARGB(255, r, g, b));
+	return 0;
 }
 
 typedef struct
@@ -65,6 +97,23 @@ bool WorldToScreen(float * from, float * to)
 	return true;
 }
 
+void DrawBone(int bone1, int bone2, DWORD BoneBase)
+{
+	float Bone1[3];
+	float W2S_Bone1[3];
+	cBoneMatrix.GetBonePos(BoneBase, bone2, Bone1);
+
+	if (WorldToScreen(Bone1, W2S_Bone1))
+	{
+		float x;
+		float y;
+		x = (winSize.right / 2) - W2S_Bone1[0];
+		y = (winSize.bottom / 2) - W2S_Bone1[1];
+
+		DrawBox((winSize.right / 2) - x, (winSize.bottom / 2) - y, 4, 4, 1, 255, 255, 255, 255);
+	}
+}
+
 void drawCrosshair()
 {
 	//// MARKED AS TECHONO HERESY <start>////
@@ -72,4 +121,51 @@ void drawCrosshair()
 	DrawLine((winSize.right / 2) + 13, (winSize.bottom / 2), (winSize.right / 2) + 13 + 45, (winSize.bottom / 2), 255, 50, 50, 100, 2);
 	DrawLine((winSize.right / 2) - 13, (winSize.bottom / 2), (winSize.right / 2) - 13 - 45, (winSize.bottom / 2), 255, 50, 50, 100, 2);
 	//// MARKED AS TECHONO HERESY <end>////
+}
+
+void drawWH()
+{
+	pLocal->ReadData();//
+
+	for (int i = 0; i < 20; i++)
+	{
+		pEntity[i]->ReadData(i);
+
+		if (	!pEntity[i]->BoneBase
+			||	!pEntity[i]->isAlive
+			)
+		{
+			continue;
+		}
+
+		float W2S[3];
+		float W2S_Head[3];
+
+		if (WorldToScreen(pEntity[i]->Pos, W2S) && WorldToScreen(pEntity[i]->HeadPos, W2S_Head))
+		{
+			int height = abs(W2S[1] - W2S_Head[1]);//abs = absolute http://www.cplusplus.com/reference/cstdlib/abs/
+			int width = height / 2; //You can change this value to anything you would liek
+
+			if (pLocal->Player != pEntity[i]->Player)
+			{
+				char heal[10];
+
+				itoa(pEntity[i]->Health, heal, 10);
+
+				//Check if the player is in our team
+				if (pEntity[i]->Team == pLocal->Team)
+				{
+					DrawBox(W2S[0] - (width / 2), W2S[1] - height, width, height, 1, 0, 0, 255, 255);
+				}
+				else//Check if the player is not in our team
+				{
+					DrawBox(W2S[0] - (width / 2), W2S[1] - height, width, height, 1, 255, 0, 0, 255);
+				}
+
+				DrawString(heal, W2S[0] - (width / 2), W2S[1] - height, 255, 255, 255, pFont);
+
+				DrawBone(7, 8, pEntity[i]->BoneBase);
+			}
+		}
+	}
 }
