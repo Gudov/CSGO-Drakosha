@@ -26,7 +26,9 @@ void DrawLine(float x, float y, float xx, float yy, int r, int g, int b, int a, 
 
 void drawCrosshair()
 {
+	//// MAKED AS TECHONO HERESY <start>////
 	DrawLine((winSize.right / 2), (winSize.bottom / 2), (winSize.right / 2) + 1, (winSize.bottom / 2) + 1, 255, 50, 50, 230, 2);
 	DrawLine((winSize.right / 2) + 13, (winSize.bottom / 2), (winSize.right / 2) + 13 + 45, (winSize.bottom / 2), 255, 50, 50, 100, 2);
 	DrawLine((winSize.right / 2) - 13, (winSize.bottom / 2), (winSize.right / 2) - 13 - 45, (winSize.bottom / 2), 255, 50, 50, 100, 2);
+	//// MAKED AS TECHONO HERESY <end>////
 }

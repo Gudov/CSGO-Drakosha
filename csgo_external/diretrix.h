@@ -7,9 +7,9 @@
 int DirectXInit(HWND hWnd);
 void Render();
 
-//extern ID3DXLine* p_Line;
-//extern ID3DXFont* pFontSmall;
-//extern ID3DXFont* pFont;
-//extern RECT winSize;
+//extern ID3DXLine* p_Line;			// если это раскоментить
+//extern ID3DXFont* pFontSmall;		// тут будет ќ„≈Ќ№ много ошибок
+//extern ID3DXFont* pFont;			// и € не знаю в чем дело
+//extern RECT winSize;				// watch draw.cpp
 
 #endif
