@@ -8,3 +8,8 @@ void setWindowRenderFoo( RenderFoo foo );
 void initWindow( HINSTANCE hInstance );
 void processMessages(void);		// void говорит нам, вот это объ€вление
 								// попробую такой стиль
+
+HWND getSelfHWND();
+
+int getWinTH();
+int getWinTW();

@@ -7,6 +7,24 @@ const MARGINS Margin = { 0, 0, 1920, 1080 }; //WTF
 HWND hWnd;
 HWND tWnd;
 
+int WinTWidth;
+int WinTHeight;
+
+HWND getSelfHWND()
+{
+	return hWnd;
+}
+
+int getWinTH()
+{
+	return WinTHeight;
+}
+
+int getWinTW()
+{
+	return WinTWidth;
+}
+
 char tWindowName[256] = "Counter-Strike: Global Offensive";
 
 MSG Message;
@@ -77,15 +95,15 @@ void SetWindowToTarget()
 		{
 			RECT tSize;
 			GetWindowRect(tWnd, &tSize);
-			int Width = tSize.right - tSize.left;
-			int Height = tSize.bottom - tSize.top;
+			WinTWidth = tSize.right - tSize.left;
+			WinTHeight = tSize.bottom - tSize.top;
 			DWORD dwStyle = GetWindowLong(tWnd, GWL_STYLE);
 			if (dwStyle & WS_BORDER)
 			{
 				tSize.top += 23;
-				Height -= 23;
+				WinTHeight -= 23;
 			}
-			MoveWindow(hWnd, tSize.left, tSize.top, Width, Height, true);
+			MoveWindow(hWnd, tSize.left, tSize.top, WinTWidth, WinTHeight, true);
 		}
 		else
 		{
@@ -102,9 +120,9 @@ void createWindow()
 	{
 		RECT tSize;
 		GetWindowRect(tWnd, &tSize);
-		int Width = tSize.right - tSize.left;
-		int Height = tSize.bottom - tSize.top;
-		hWnd = CreateWindowEx(WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_LAYERED, "Drakosha", "Drakosha", WS_POPUP, 1, 1, Width, Height, 0, 0, 0, 0);
+		WinTWidth = tSize.right - tSize.left;
+		WinTHeight = tSize.bottom - tSize.top;
+		hWnd = CreateWindowEx(WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_LAYERED, "Drakosha", "Drakosha", WS_POPUP, 1, 1, WinTWidth, WinTHeight, 0, 0, 0, 0);
 		SetLayeredWindowAttributes(hWnd, 0, 1.0f, LWA_ALPHA);
 		SetLayeredWindowAttributes(hWnd, 0, RGB(0, 0, 0), LWA_COLORKEY);
 		ShowWindow(hWnd, SW_SHOW);
