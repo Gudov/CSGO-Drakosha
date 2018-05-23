@@ -4,12 +4,9 @@
 
 CBoneMatrix cBoneMatrix;
 
-bool getAliveStatus(int health)
+inline bool getAliveStatus(int health)
 {
-	if (health < 1)//For some reason 1 hp = dead, lol
-		return false;
-	else
-		return true;
+	return health < 1;
 }
 
 void CBoneMatrix::GetBonePos(DWORD boneBase, int boneID, float * bonePos)
