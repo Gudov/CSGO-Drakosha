@@ -10,6 +10,7 @@ void processMessages(void);		// void говорит нам, вот это объ€вление
 								// попробую такой стиль
 
 HWND getSelfHWND();
+HWND getTargHWND();
 
 int getWinTH();
 int getWinTW();

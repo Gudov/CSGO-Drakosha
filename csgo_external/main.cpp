@@ -6,5 +6,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hSecInstance, LPSTR nCmdLine, 
 {
 	initWindow(hInstance);
 	DirectXInit(getSelfHWND());
+	setWindowRenderFoo(Render);
 	processMessages();
 }

@@ -1,4 +1,5 @@
 #include "diretrix.h"
+#include "draw.h"
 #include "window.h"
 
 #include <d3d9.h>
@@ -19,6 +20,8 @@ ID3DXLine* p_Line;
 ID3DXFont* pFontSmall = 0;
 ID3DXFont* pFont = 0;
 
+RECT winSize;
+
 void initPParams(HWND hWnd)
 {
 	ZeroMemory(&p_Params, sizeof(p_Params));
@@ -38,6 +41,8 @@ void initPParams(HWND hWnd)
 
 int DirectXInit(HWND hWnd)
 {
+	GetClientRect(getTargHWND(), &winSize); // ну и напортачил тут я с этими ректами
+
 	if (FAILED(Direct3DCreate9Ex(D3D_SDK_VERSION, &p_Object)))
 		exit(1);
 
@@ -56,6 +61,8 @@ void Render()
 {
 	p_Device->Clear(0, 0, D3DCLEAR_TARGET, 0, 1.0f, 0);
 	p_Device->BeginScene();
+
+	drawCrosshair();
 
 	p_Device->EndScene();
 	p_Device->PresentEx(0, 0, 0, 0, 0);

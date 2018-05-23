@@ -15,6 +15,11 @@ HWND getSelfHWND()
 	return hWnd;
 }
 
+HWND getTargHWND()
+{
+	return tWnd;
+}
+
 int getWinTH()
 {
 	return WinTHeight;
