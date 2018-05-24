@@ -6,7 +6,7 @@ CBoneMatrix cBoneMatrix;
 
 inline bool getAliveStatus(int health)
 {
-	return health < 1;
+	return !( health < 1 );
 }
 
 void CBoneMatrix::GetBonePos(DWORD boneBase, int boneID, float * bonePos)
