@@ -53,7 +53,7 @@ int DrawString(char* String, int x, int y, int r, int g, int b, ID3DXFont* ifont
 	RECT FontPos;
 	FontPos.left = x;
 	FontPos.top = y;
-	ifont->DrawTextA(0, String, strlen(String), &ShadowPos, DT_NOCLIP, D3DCOLOR_ARGB(255, r / 3, g / 3, b / 3));
+	//ifont->DrawTextA(0, String, strlen(String), &ShadowPos, DT_NOCLIP, D3DCOLOR_ARGB(255, r / 3, g / 3, b / 3));
 	ifont->DrawTextA(0, String, strlen(String), &FontPos, DT_NOCLIP, D3DCOLOR_ARGB(255, r, g, b));
 	return 0;
 }
@@ -181,6 +181,32 @@ void drawWH()
 
 				DrawBone(7, 8, pEntity[i]->BoneBase);
 			}
+		}
+	}
+}
+
+struct npos
+{
+	float x, y, z;
+};
+
+void drawCompass()
+{
+	//int coff = 3.14159265 / 180.0;
+	//coff *= 20;
+	char st[10];
+	for ( int i = 0; i < 12; i++ )
+	{
+		npos pos = *((npos*)pLocal->Pos);
+		pos.x += cos(i * 3.14159265 / 180.0 * 30) * 100;
+		pos.y += sin(i * 3.14159265 / 180.0 * 30) * 100;
+		pos.z += 40;
+
+		npos inScreen;
+		if (WorldToScreen((float*)&pos, (float*)&inScreen))
+		{
+			itoa(i*30, st, 10);
+			DrawString(st, inScreen.x, inScreen.y, 255, 255, 255, pFont);
 		}
 	}
 }

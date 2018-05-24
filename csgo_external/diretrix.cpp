@@ -64,6 +64,7 @@ void Render()
 
 	drawCrosshair();
 	drawWH();
+	drawCompass();
 
 	p_Device->EndScene();
 	p_Device->PresentEx(0, 0, 0, 0, 0);
