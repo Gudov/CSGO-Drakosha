@@ -1,0 +1,8 @@
+Debug/
+Release/
+.vs/
+.gitattributes
+csgo_external.VC.VC.opendb
+csgo_external.VC.db
+csgo_external/csgo_external.vcxproj.filters
+csgo_external/csgo_external.vcxproj.user
