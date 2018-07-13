@@ -13,13 +13,13 @@ DWORD ViewMatrix;
 
 void initOffsets()
 {
-	LocalPlayer		 = 0xAA9AB4;
-	EntityList		 = 0x4A8473C;
+	LocalPlayer		 = 0xAB6D4C;
+	EntityList		 = 0x4A92384;
 
 	m_iTeamNum		 = 0xF0;
 	m_iHealth		 = 0xFC;
 	m_vecOrigin		 = 0x134;
 
 	BoneMatrix		 = 0x2698;
-	ViewMatrix		 = 0x4A76154;
+	ViewMatrix		 = 0x4A83DB4;
 }

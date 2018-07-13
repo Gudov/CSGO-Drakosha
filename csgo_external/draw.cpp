@@ -156,7 +156,7 @@ void drawWH()
 			DrawBox(145 + radarx, 50 + 145 + radary, 6, 6, 1, 255, 0, 0, 255);
 		}
 
-		if (WorldToScreen(pEntity[i]->Pos, W2S) && WorldToScreen(pEntity[i]->HeadPos, W2S_Head))
+		if (1 && WorldToScreen(pEntity[i]->Pos, W2S) && WorldToScreen(pEntity[i]->HeadPos, W2S_Head))
 		{
 			int height = abs(W2S[1] - W2S_Head[1]);//abs = absolute http://www.cplusplus.com/reference/cstdlib/abs/
 			int width = height / 2; //You can change this value to anything you would liek
